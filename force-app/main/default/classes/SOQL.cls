@@ -79,10 +79,6 @@ public with sharing class SOQL {
     return opportunities;
 }
     
-    
-      //  The body of the method
-    //}
-
     /**
      * Question 5
      * Update/Uncomment the template code to create a method
@@ -90,18 +86,28 @@ public with sharing class SOQL {
      * @return The Integer count of Account records.
      * Update the corresponding test class and testGetAccountCount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+  public static Integer getAccountCount(){
+    return [SELECT COUNT() FROM Account];
+  }
+//}
 
-    /**
-     * Question 6
+    
+     /* Question 6
      * Update/Uncomment the template code to create a method
      * Return Key Value pair of Task Id and Task records for any tasks due date within the next 7 days.
      * @return A map of Task Ids to Task records.
      * Update the corresponding test class and testGetTasksDueNextWeek method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
+    public static Map<ID, Task> getTasksWithDueDates() {
+      Map<ID, Task> taskMap = new Map<ID, Task>(); // Changed to Map<ID, Task>
+      List<Task> tasks = [SELECT ID, ActivityDate FROM Task WHERE ActivityDate <= NEXT_N_DAYS:7];
+      for (Task t : tasks) {
+          taskMap.put(t.Id, t); // Put the entire Task object into the map
+      }
+      return taskMap;
+  }
+  
+    
     //  The body of the method
     //}
 
@@ -168,7 +174,7 @@ public with sharing class SOQL {
 
         // Return the list of Contact LastNames
       //  return null; // Replace null with the variable you used to store the result
-    }
+   // }
 
     /**
      * Question 12
@@ -374,4 +380,4 @@ public with sharing class SOQL {
 
         // Update the Opportunities
    // }
-//}
+}
