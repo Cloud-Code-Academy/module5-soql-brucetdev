@@ -80,7 +80,7 @@ public with sharing class SOQLTest {
         Set<Id> expectedContactIds = new Set<Id>{testContact1.Id, testContact2.Id};
         System.assertEquals(expectedContactIds, new Set<Id>(contactIds), 'Returned contact IDs are incorrect.');
     }
-/*
+
     @IsTest
     static void testGetClosedWonOpportunityCountByAccount() {
         // Create test data
@@ -93,7 +93,7 @@ public with sharing class SOQLTest {
         insert new List<Opportunity>{testOpportunity1, testOpportunity2, testOpportunity3};
 
         // Call the method to test
-        List<Opportunity> opportunities = null; //Replace null with your method passing in testAccount.Id
+        List<Opportunity> opportunities = SOQL.getClosedWonOpportunityCountByAccount(); //Replace null with your method passing in testAccount.Id
 
         // Assert that the number of opportunities returned is correct
         System.assertEquals(2, opportunities.size(), 'Number of opportunities returned is incorrect.');
@@ -112,7 +112,7 @@ public with sharing class SOQLTest {
             Assert.fail('SObjectException thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetAccountCount() {
 

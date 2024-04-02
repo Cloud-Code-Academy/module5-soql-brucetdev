@@ -61,8 +61,8 @@ public with sharing class SOQL {
     return contactIds;
 }
 
-    /**
-     * Question 4
+    
+     /* Question 4
      * Update/Uncomment the template code to create a method
      * Returns List of closed won opportunities for a specific Account.
      * Example: yourMethodName('001XXXXXXXXXXXX') should return the list of closed won opportunities for the Account with the Id
@@ -70,8 +70,17 @@ public with sharing class SOQL {
      * @return A list of Opportunities with important opportunities fields
      * Update the corresponding test class and testGetClosedWonOpportunityCountByAccount method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
+    // public static List<Id> getContactIdsByLastName(){
+    public static List<Opportunity> getClosedWonOpportunityCountByAccount(){
+      List<Opportunity> opportunities = new List<Opportunity>();
+      for (Opportunity o : [SELECT Id, Amount, Name, CloseDate, Stagename, Opportunity.AccountId FROM Opportunity WHERE Stagename = 'Closed Won']) {
+        opportunities.add(o);
+    }
+    return opportunities;
+}
+    
+    
+      //  The body of the method
     //}
 
     /**
