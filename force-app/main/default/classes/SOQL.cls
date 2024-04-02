@@ -34,16 +34,17 @@ public with sharing class SOQL {
     }
 
 
-       /**
-     * Question 2
+       
+     /* Question 2
      * Update/Uncomment the template code to create a method
      * Returns all contacts with first name of John.
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByFirstName method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}
+    public static List<Contact> getAllContactsWithFirstNameJohn(){
+    List <Contact> allJohnContacts = [SELECT Id, Name FROM CONTACT WHERE Firstname = 'John'];
+    return allJohnContacts;
+    }
 
     /**
      * Question 3
