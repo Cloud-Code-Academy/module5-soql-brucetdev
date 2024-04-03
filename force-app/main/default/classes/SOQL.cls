@@ -107,10 +107,6 @@ public with sharing class SOQL {
       return taskMap;
   }
   
-    
-    //  The body of the method
-    //}
-
     /**
      * Question 7
      * Update/Uncomment the template code to create a method
@@ -118,8 +114,16 @@ public with sharing class SOQL {
      * @return A list of Contact records.
      * Update the corresponding test class and testGetContactsByEmailDomain method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
+    public static List <Contact>getContactsByEmailDomain(){
+      List<Contact> contactList = new List<Contact>();
+      for (contact con : [SELECT Id, Email, Name FROM Contact WHERE Email LIKE '%example.com']) {
+        contactList.add(con);
+    }
+    return contactList;
+}
+
+
+      //  The body of the method
     //}
 
     /**
