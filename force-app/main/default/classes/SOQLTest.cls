@@ -207,7 +207,7 @@ public with sharing class SOQLTest {
         opportunities = SOQL.getOpportunitiesByNameKeyword(null);
         System.assertEquals(0, opportunities.size(), 'Number of opportunities returned is incorrect.');
     }
-/*
+
     @IsTest
     static void testGetFilterCaseOrigins() {
         // Create test data
@@ -221,7 +221,7 @@ public with sharing class SOQLTest {
         insert new List<Case>{testCase1, testCase2, testCase3, testCase4};
 
         // Call the method to test
-        List<Case> cases = SOQL.getFilterCaseOrigins();
+        List<Case> cases = SOQL.getFilteredCases();
 
         // Assert that the number of cases returned is correct
         System.assertEquals(1, cases.size(), 'Number of cases returned is incorrect.');
@@ -237,7 +237,7 @@ public with sharing class SOQLTest {
             Assert.fail('SObjectException thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetLeadsBySourceOrTitle() {
         // Create test data

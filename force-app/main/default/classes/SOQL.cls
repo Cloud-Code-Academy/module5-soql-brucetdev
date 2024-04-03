@@ -147,10 +147,16 @@ public with sharing class SOQL {
      * Retrieves all Cases that Case Origin is not Web or Email or Blank
      * @return A list of Case records.
      */
-   // public static List<Case> getFilterCaseOrigins() {
-   //     return null; // Replace null with the variable you used to store the result
-   // }
+    public static List<Case> getFilteredCases() {
+      List<Case> caseList = new List<Case>(); 
+      for (Case cs : [SELECT Id, Origin FROM Case WHERE Origin NOT IN ('Web', 'Email', '')]) {
+          caseList.add(cs);
+      }
+      return caseList;
+  }
 
+
+   /**
     /**
      * Question 10
      * Update/Uncomment the template code to create a method
