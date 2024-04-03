@@ -156,7 +156,7 @@ public with sharing class SOQL {
   }
 
 
-   /**
+   
     /**
      * Question 10
      * Update/Uncomment the template code to create a method
@@ -167,9 +167,24 @@ public with sharing class SOQL {
      * @return A list of Lead records.
      * Update the corresponding test class and testGetLeadsBySourceOrTitle method to cover this method
      */
-    //[public | private ] [static] data_type method_name (input parameters) {
-    //  The body of the method
-    //}    
+    public static List<Lead> getGetLeadsBySourceOrTitle() {
+      List<Lead> leadList = new List<Lead>();
+
+      leadList.addall([SELECT ID, Company, LastName, LeadSource, Title, Phone, Email FROM Lead WHERE LeadSource = 'Web']);
+      leadlist.addall([SELECT ID, Company, LastName, LeadSource, Title, Phone, Email FROM Lead WHERE Title Like '%Engineer']);
+      
+      return leadList;
+  }
+    
+/*
+      List<Case> caseList = new List<Case>(); 
+      for (Case cs : [SELECT Id, Origin FROM Case WHERE Origin NOT IN ('Web', 'Email', '')]) {
+          caseList.add(cs);
+      }
+      return caseList;
+  }
+  /*
+
 
     /**
      * Question 11

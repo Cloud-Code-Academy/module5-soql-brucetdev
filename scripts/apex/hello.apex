@@ -5,6 +5,19 @@
 // You can also execute the entire file by running the command:
 //     SFDX: Execute Anonymous Apex with Editor Contents
 
-string tempvar = 'Enter_your_name_here';
-System.debug('Hello World!');
-System.debug('My name is ' + tempvar);
+//string tempvar = 'Enter_your_name_here';
+//System.debug('Hello World!');
+//System.debug('My name is ' + tempvar);
+/*
+public class GradingEngine {
+
+    String testResult = ''; 
+
+    public void getTestResult(Integer score){
+        // Only run this code if the score > 90 
+        if(score => 90) {
+        this.testResult = 'Passed'; 
+    }
+}
+}
+*/

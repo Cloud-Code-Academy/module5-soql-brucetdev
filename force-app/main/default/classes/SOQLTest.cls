@@ -237,7 +237,7 @@ public with sharing class SOQLTest {
             Assert.fail('SObjectException thrown: ' + ex.getMessage());
         }
     }
-/*
+
     @IsTest
     static void testGetLeadsBySourceOrTitle() {
         // Create test data
@@ -249,7 +249,7 @@ public with sharing class SOQLTest {
         insert new List<Lead>{testLead1, testLead2, testLead3, testLead4};
 
         // Call the method to test
-        List<Lead> leads = null; //Replace null with your method passing 'Web', 'Engineer' 
+        List<Lead> leads = SOQL.getGetLeadsBySourceOrTitle(); //Replace null with your method passing 'Web', 'Engineer' 
 
         // Assert that the number of leads returned is correct
         System.assertEquals(3, leads.size(), 'Number of leads returned is incorrect.');
@@ -266,8 +266,10 @@ public with sharing class SOQLTest {
         } catch (SObjectException ex) {
             Assert.fail('SObjectException thrown: ' + ex.getMessage());
         }
+            // Output content of leads list to debug logs
+    System.debug('Content of leads list: ' + leads);
     }
-
+/*
     @IsTest
     static void testGetContactNamesByAccount() {
         // Create test data
