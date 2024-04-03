@@ -177,7 +177,7 @@ public with sharing class SOQLTest {
             Assert.fail('SObjectException thrown: ' + ex.getMessage());
         }
     }
-/*
+
     @IsTest
     static void testGetOpportunitiesByNameKeyword() {
         // Create test data
@@ -207,7 +207,7 @@ public with sharing class SOQLTest {
         opportunities = SOQL.getOpportunitiesByNameKeyword(null);
         System.assertEquals(0, opportunities.size(), 'Number of opportunities returned is incorrect.');
     }
-
+/*
     @IsTest
     static void testGetFilterCaseOrigins() {
         // Create test data

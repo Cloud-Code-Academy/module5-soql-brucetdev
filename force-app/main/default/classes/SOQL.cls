@@ -122,10 +122,6 @@ public with sharing class SOQL {
     return contactList;
 }
 
-
-      //  The body of the method
-    //}
-
     /**
      * Question 8
      * Retrieves all Opportunities that have a specific keyword in their Name.
@@ -133,11 +129,20 @@ public with sharing class SOQL {
      * @param keyword The keyword to search for in the Opportunity Name.
      * @return A list of Opportunity records.
      */
- //   public static List<Opportunity> getOpportunitiesByNameKeyword(String keyword) {
-  //      return null; // Replace null with the variable you used to store the result
- //   }
+  
+     public static List<Opportunity> getOpportunitiesByNameKeyword(String keyword) {
+      List<Opportunity> oppList = new List<Opportunity>();
+      // Added a null check for the keyword parameter to prevent SOQL injection and improve flexibility
+      if (keyword != null && keyword != '') {
+          // Used binding to dynamically include the keyword in the SOQL query
+          for (Opportunity opp : [SELECT Id, Name FROM Opportunity WHERE Name LIKE :'%'+keyword+'%']) {
+              oppList.add(opp);
+          }
+      }
+      return oppList;
+  }
 
-    /**
+      /**
      * Question 9
      * Retrieves all Cases that Case Origin is not Web or Email or Blank
      * @return A list of Case records.
