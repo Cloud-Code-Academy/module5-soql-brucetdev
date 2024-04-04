@@ -176,35 +176,28 @@ public with sharing class SOQL {
       return leadList;
   }
     
-/*
-      List<Case> caseList = new List<Case>(); 
-      for (Case cs : [SELECT Id, Origin FROM Case WHERE Origin NOT IN ('Web', 'Email', '')]) {
-          caseList.add(cs);
-      }
-      return caseList;
-  }
-  /*
-
-
-    /**
+    /*
      * Question 11
      * Returns the names of all Contacts associated with an Account.
      * Example: getContactNamesByAccount('001XXXXXXXXXXXX') should return the list of Contact LastNames for the Account with the Id
      * @param accountId The ID of the Account.
      * @return A list of Contact LastName.
      */
-   // public static List<String> getContactNamesByAccount(Id accountId) {
-        // Create a list to hold the Contact LastNames
+ 
+public static List<String> getContactNamesByAccount(Id accountId) {
+  // Create a new list to hold the Contact LastNames
+  List<String> contLastNameList = new List<String>();
+  // Query the Contacts
+  List<Contact> allContacts = [SELECT LastName FROM Contact WHERE AccountId = :accountId];
+  // Loop through each Contact and add the LastName to the list
+  for (Contact con : allContacts) {
+      contLastNameList.add(con.LastName);
+  }
+  // Return the list of Contact LastNames
+  return contLastNameList;
+}
 
-        // Query the Contacts
-        // Loop through each Contact and add the LastName to the list
-        //for () {
-        //    
-        //}
 
-        // Return the list of Contact LastNames
-      //  return null; // Replace null with the variable you used to store the result
-   // }
 
     /**
      * Question 12

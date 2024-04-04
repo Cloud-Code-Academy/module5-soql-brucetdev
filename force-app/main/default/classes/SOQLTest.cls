@@ -269,7 +269,7 @@ public with sharing class SOQLTest {
             // Output content of leads list to debug logs
     System.debug('Content of leads list: ' + leads);
     }
-/*
+
     @IsTest
     static void testGetContactNamesByAccount() {
         // Create test data
@@ -298,7 +298,7 @@ public with sharing class SOQLTest {
 
         // Call the method to test
         Account testAccount = accounts[(Integer)Math.floor(Math.random() * accounts.size())];
-        List<String> contactNames = SOQL.getContactNamesByAccount(testAccount.Id);
+        List<String> contactNames = SOQL.getContactNamesByAccount(testAccount.Id);  // et SOQL.getContactNamesByAccount(testAccount.Id);
 
         // Assert that the number of contact names returned is correct
         System.assertEquals(accountContacts.get(testAccount.Id).size(), contactNames.size(), 'Number of contact names returned is incorrect.');
@@ -312,7 +312,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetTotalRevenueByStage() {
         // Create test data
