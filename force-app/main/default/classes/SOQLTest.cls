@@ -405,7 +405,7 @@ public with sharing class SOQLTest {
             System.assert(returnedContacts[i].Birthdate >= returnedContacts[i + 1].Birthdate, 'Contacts are not ordered correctly by Birthdate.');
         }
     }
-/*
+
     @IsTest
     static void testGetCasesWithStatus() {
         // Create test data
@@ -475,7 +475,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetAccountIdsToNamesNotInCountry() {
         // Create test data

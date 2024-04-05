@@ -257,10 +257,12 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * Retrieves the Cases in the Open Status, ordered by CreatedDate, and limited to 10 records with an offset of 5.
      * @return A list of Cases
      */
-  //  public static List<Case> getCasesWithStatus() {
-  //      return null; // Replace null with the variable you used to store the result
-  //  }
-
+    public static List<Case> getCasesWithStatus() {
+    List<Case> casesWithStatus = new List<Case>();
+    casesWithStatus = [SELECT ID, Status, CreatedDate FROM Case ORDER BY CreatedDate LIMIT 10 OFFSET 5];
+    return casesWithStatus;
+    }
+ 
     /**
      * Question 17
      * Returns Set of Case Ids for a specific Account.
@@ -268,18 +270,19 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * @param accountId The ID of the Account.
      * @return A set of Case Ids.
      */
- //   public static Set<Id> getCaseIdsByAccount(Id accountId) {
+    public static Set<Id> getCaseIdsByAccount(Id accountId) {
         // Create a set to hold the Case Ids
-
+      Set <Id> CaseIdSet = new Set<Id>();
         // Query the Cases
+      List<Case> myCasesList = [SELECT ID FROM Case WHERE AccountId = :accountId];
+      Set<Case> myCasesSet = new Set<Case>(myCasesList);
         // Loop through each Case and add the Id to the set
-        //for () {
-        //    
-        //}
-
- //       return null; // Replace null with the variable you used to store the result
- //   }
-
+       for (Case caseRec : myCasesList){
+        CaseIdSet.add(caseRec.Id);
+       }
+        return caseIdSet;
+    }
+   
     /**
      * Question 18
      * Return Map of Account Ids to Account Names Not in a specific Country.
