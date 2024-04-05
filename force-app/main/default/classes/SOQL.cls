@@ -272,13 +272,13 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      */
     public static Set<Id> getCaseIdsByAccount(Id accountId) {
         // Create a set to hold the Case Ids
-      Set <Id> CaseIdSet = new Set<Id>();
+      Set <Id> caseIdSet = new Set<Id>();
         // Query the Cases
       List<Case> myCasesList = [SELECT ID FROM Case WHERE AccountId = :accountId];
       Set<Case> myCasesSet = new Set<Case>(myCasesList);
         // Loop through each Case and add the Id to the set
        for (Case caseRec : myCasesList){
-        CaseIdSet.add(caseRec.Id);
+        caseIdSet.add(caseRec.Id);
        }
         return caseIdSet;
     }
@@ -290,13 +290,18 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * @param country The country to filter Accounts.
      * @return A map of Account Ids to Account Names.
      */
- //   public static Map<Id, String> getAccountIdsToNamesNotInCountry(String country) {
+    public static Map<Id, String> getAccountIdsToNamesNotInCountry(String country) {
         // Create a map to hold the Account Ids to Account Names
- //       Map<Id, String> accountIdsToNames = new Map<Id, String>();
+        Map<Id, String> accountMap = new Map<Id, String>();
 
         // Query the Accounts
-        // Loop through each Account and add the Id and Name to the map
-
+      List <Account> myAccountList = [SELECT ID, Name FROM Account WHERE BillingCountry != :country];
+      // Loop through each Account and add the Id and Name to the map
+      for (Account acc : myAccountList){
+        accountMap.put(acc.ID, acc.Name);
+      }
+      return accountMap;
+    }
  //       return null; // Replace null with the variable you used to store the result
   //  }
 

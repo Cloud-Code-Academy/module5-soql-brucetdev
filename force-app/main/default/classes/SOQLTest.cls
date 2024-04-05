@@ -475,7 +475,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-/*
+
     @IsTest
     static void testGetAccountIdsToNamesNotInCountry() {
         // Create test data
@@ -499,7 +499,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetAccountNameForContact() {
         // Create test data
