@@ -312,7 +312,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-/*
+
     @IsTest
     static void testGetTotalRevenueByStage() {
         // Create test data
@@ -381,7 +381,7 @@ public with sharing class SOQLTest {
             System.assert(returnedOpportunities[i].Amount > 100000, 'Opportunity amount is less than 100,000.');
         }
     }
-
+/*
     @IsTest
     static void testGetBirthdateContacts() {
         // Create test data
