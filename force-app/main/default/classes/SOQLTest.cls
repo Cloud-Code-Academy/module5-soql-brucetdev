@@ -381,7 +381,7 @@ public with sharing class SOQLTest {
             System.assert(returnedOpportunities[i].Amount > 100000, 'Opportunity amount is less than 100,000.');
         }
     }
-/*
+
     @IsTest
     static void testGetBirthdateContacts() {
         // Create test data
@@ -405,7 +405,7 @@ public with sharing class SOQLTest {
             System.assert(returnedContacts[i].Birthdate >= returnedContacts[i + 1].Birthdate, 'Contacts are not ordered correctly by Birthdate.');
         }
     }
-
+/*
     @IsTest
     static void testGetCasesWithStatus() {
         // Create test data

@@ -246,10 +246,12 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * Retrieves the Contacts with the most recent Birthdate, ordered by Birthdate, and limited to 3 records.
      * @return A list of Contacts
      */
-   //public static List<Contact> getBirthdateContacts() {
-   //     return null; // Replace null with the variable you used to store the result
-  //  }
-    
+   public static List<Contact> getBirthdateContacts() {
+    List<Contact> birthdayContacts = new List<Contact>();
+    birthdayContacts = [SELECT Name, ID, Birthdate FROM CONTACT ORDER BY Birthdate DESC LIMIT 3];
+    return birthdayContacts;
+   }
+     
     /**
      * Question 16
      * Retrieves the Cases in the Open Status, ordered by CreatedDate, and limited to 10 records with an offset of 5.
