@@ -324,9 +324,10 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * @param accountId The ID of the Account.
      * @return An Account record with related Opportunities.
      */
- //   public static Account getOpportunityAndAccountNamesForLineItem(Id accountId) {
- //       return null; // Replace null with the variable you used to store the result
- //   }
+    public static Account getOpportunityAndAccountNamesForLineItem(Id accountId) {
+    Account acc = [SELECT Name, (SELECT ID, Name FROM Opportunities) FROM Account Where ID = :accountId Limit 1];
+    return acc; 
+    }
 
     /**
      * Question 21

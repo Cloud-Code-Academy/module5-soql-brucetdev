@@ -515,7 +515,7 @@ public with sharing class SOQLTest {
         // Assert that the returned account name is correct
         System.assertEquals('Test Account 1', accountName, 'Returned account name is incorrect.');
     }
-/*
+
     @IsTest
     static void testGetOpportunityAndAccountNamesForLineItem() {
         // Create test data
@@ -543,7 +543,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testGetAccountsWithContactsByState() {
         // Create test data
