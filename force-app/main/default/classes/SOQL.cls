@@ -306,15 +306,16 @@ public static List<String> getContactNamesByAccount(Id accountId) {
   //  }
 
     /**
-     * Question 19
+     * Question 19 
      * Retrieves the Account Name for a given Contact.
      * Example: getAccountNameForContact('003XXXXXXXXXXXX') should return the Account Name for the Contact with the Id
      * @param contactId The Id of the Contact.
      * @return The Account Name of the Contact.
      */
-  //  public static String getAccountNameForContact(String contactId) {
- //       return null; // Replace null with the variable you used to store the result
- //   }    
+    public static String getAccountNameForContact(String contactId) {
+    Account acc = [SELECT Name FROM Account WHERE Id IN (SELECT AccountId FROM Contact WHERE Id = :contactId) LIMIT 1];
+    return acc != null ? acc.Name : null;
+}
 
     /**
      * Question 20
