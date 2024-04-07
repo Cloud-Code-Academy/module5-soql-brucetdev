@@ -543,7 +543,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-/*
+
     @IsTest
     static void testGetAccountsWithContactsByState() {
         // Create test data
@@ -585,7 +585,7 @@ public with sharing class SOQLTest {
         // Assert that the number of contacts returned is correct
         System.assertEquals(testAccount.BillingState == 'CA' ? numberOfContactsInState : numberOfContactsInNY , contactsByState.size(), 'Number of contacts returned is incorrect.');
     }
-
+/*
     @IsTest
     static void testFindContactsByLeadEmailDomains() {
         // Create test data

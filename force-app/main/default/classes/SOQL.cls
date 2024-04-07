@@ -336,14 +336,20 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * @param Account Id
      * @return List of contacts with the same Mailing State as the Account Billing State
      */
-  //  public static List<Contact> getAccountsWithContactsByState(Id accountId) {
+    public static List<Contact> getAccountsWithContactsByState(Id accountId) {
         // Query the Account
-
+        String billingState = [SELECT BillingState FROM Account Where ID = :accountId].BillingState;
         // Store the Account's BillingState
-
+        List<Contact> contactList = [SELECT Id, Name, MailingState FROM Contact WHERE MailingState = :billingState];
+        return contactList;     
+    }   
         // Query the Contacts
+       // List <Contact> contactList = [SELECT ID, Name, MailingAddress FROM Contact (SELECT ID, Name, MailingState FROM Account WHERE account.ID = 'accountId')];
+        
  //       return null; // Replace null with the variable you used to store the result
- //   }
+    
+
+//List <Contact> myContactList = [SELECT ID, Name, MailingAddress FROM Contact WHERE MailingAddress LIKE Account.BillingState = accountId] //  BillingCountry != :country]; 
 
     /**
      * Question 22
