@@ -343,15 +343,8 @@ public static List<String> getContactNamesByAccount(Id accountId) {
         List<Contact> contactList = [SELECT Id, Name, MailingState FROM Contact WHERE MailingState = :billingState];
         return contactList;     
     }   
-        // Query the Contacts
-       // List <Contact> contactList = [SELECT ID, Name, MailingAddress FROM Contact (SELECT ID, Name, MailingState FROM Account WHERE account.ID = 'accountId')];
-        
- //       return null; // Replace null with the variable you used to store the result
-    
-
-//List <Contact> myContactList = [SELECT ID, Name, MailingAddress FROM Contact WHERE MailingAddress LIKE Account.BillingState = accountId] //  BillingCountry != :country]; 
-
-    /**
+ 
+    /*
      * Question 22
      * Extracts email domains from them leads, then finds Accounts with matching website domains
      * If Lead Email = test@test.com return account with website = www.test.com
@@ -359,76 +352,130 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * @param A set of Lead Ids.
      * @return A list of Accounts with matching email domains.
      */
-   // public static List<Account> findContactsByLeadEmailDomains(Set<Id> leadIds) {
-        // Query the Leads
-
-        // Create a set of email domains from the Leads
-
-        // Loop through each Lead
-
-            // Get the email from the Lead
-
-            // Check if the email is not null
-
-                // Add the email domain to the set
-
-        
-        // Query the Accounts
-     //   return null; // Replace null with the variable you used to store the result
-   // }
+     
+     public static List<Account> findContactsByLeadEmailDomains(Set<Id> leadIds) {
+    Set<String> emailDomains = new Set<String>();
+    
+    // Query the Leads
+    List<Lead> leadList = [SELECT Id, Email FROM Lead WHERE Id IN :leadIds];
+    
+    // Extract email domains from Leads' emails and add to the set
+    for (Lead lead : leadList) {
+        if (lead.Email != null) {
+            String[] parts = lead.Email.split('@');
+            if (parts.size() == 2) {
+                emailDomains.add(parts[1].toLowerCase()); // Convert to lower case for case insensitivity
+            }
+        }
+    }
+    
+    // Query the Accounts with matching website domains
+    List<Account> matchingAccounts = [SELECT Id, Website FROM Account WHERE Website != null];
+    
+    // Filter the matching accounts based on email domains
+    List<Account> filteredAccounts = new List<Account>();
+    for (Account acc : matchingAccounts) {
+        for (String domain : emailDomains) {
+            if (acc.Website.containsIgnoreCase(domain)) {
+                filteredAccounts.add(acc);
+                break; // Once found, break and move to the next account
+            }
+        }
+    }
+    
+    return filteredAccounts;
+}
 
     /**
-     * Question 23
+     * Question 23 - this passed.
+     * Current status as of April 10: The test class does not pass the test class. Error message: "System.AssertException: Assertion Failed: Number of cloned line items is incorrect.: Expected: 1, Actual: 0"
      * Clones and Inserts Opportunity Line Items from an original Opportunity to a list of cloned Opportunities.
      * Adds a randomized number between 1 to 3 to the quantity of each line item.
      * Example: cloneLineItems('001XXXXXXXXXXXX', [list of opportunity ids]) should clone the line items from the Opportunity with the Id to each Opportunity in the list
      * @param Original Opportunity Id
      * @param List of cloned Opportunity Ids
      */
-    //public static void cloneLineItems(Id origOppId, List<Id> cloneOppIds) {
-        // Query the original Opportunity Line Items
-
-        // Create a list to hold the new line items
-
-        // Generate a random number between 1 and 3
-
-        // Loop through each cloned Opportunity Id
-
-            // Loop through each original line item
-
-                // Clone the original line item and add the random number to the quantity
-
-        // Insert the new line items
-  //  }
     
+     public static void cloneLineItems(Id origOppId, List<Id> cloneOppIds) {
+    // Query the original Opportunity Line Items
+    List<OpportunityLineItem> origOppLineItemList = [SELECT Id, Quantity, OpportunityID, PriceBookEntryID, UnitPrice FROM OpportunityLineItem WHERE OpportunityID = :origOppId];
+    System.debug('Number of original Opportunity Line Items: ' + origOppLineItemList.size());
+     // there is nothing showing in the debug line above.
+
+
+    // Create a list to hold the new line items
+    List<OpportunityLineItem> MyClonedOpps = new List<OpportunityLineItem>();
+    
+    // assigns a parent id --- this is creating the master object of opportunity before creating the child object, namely opportunity line item. 
+    // what is a better name for opploop1? -- parent object? 
+    for (Id oppLoop1 : cloneOppIds){  // The first word here 'id' is the data type
+     
+    // Loop through each original line item
+    for (OpportunityLineItem oli : origOppLineItemList) {
+        // Generate a random number between 1 and 3 for quantity
+        Integer randomNumber = Integer.valueOf(Math.random() * 3) + 1;
+        System.debug('The random number between 1 and 3 is: ' + randomNumber);
+        
+        // Clone the original line item
+        OpportunityLineItem newOli = oli.clone(false, false, false, false);
+        
+        // Add the random number to the quantity
+        newOli.Quantity = oli.Quantity + randomNumber;
+        
+        // Assign parent object id to parent object id
+        newOli.opportunityid = oppLoop1;
+              
+        // Add the cloned line item to the list
+        MyClonedOpps.add(newOli);
+    }
+  }
+
+    // Insert the cloned line items outside the loop
+    System.debug('Number of cloned line items: ' + MyClonedOpps.size());
+    insert MyClonedOpps;
+    
+
+}
+
+  
     /**
-     * Question 24
+     * Question 24 - solved question!
      * Retrieves the Opportunity Name, Account Name, and Owner Name for Opportunities that have a Stage of 'Closed Won'.
      * Example: getOpportunityDetailsForClosedWon()
      * @return A list of filtered Opportunity
      */
-  //  public static List<Opportunity> getOpportunityDetailsForClosedWon() {        
+    public static List<Opportunity> getOpportunityDetailsForClosedWon() {        
+    List<Opportunity> closedWonOpps = [SELECT ID, Name, OwnerId, Account.Name FROM Opportunity WHERE Stagename = 'Closed Won'];
+    return closedWonOpps;
    //     return null; // Replace null with the variable you used to store the result
-   // }
+    }
 
     /**
      * Question 25
      * Sets the 'Primary_Contact__c' field for all Closed Won Opportunities to first Contact on the Account.
      * Example: setPrimaryContact() should set the 'Primary_Contact__c' field for every Opportunity in the org
+     * this whole question is beyond me right now. Argh....
      */
-   // public static void setPrimaryContact() {
-        //Use the getOpportunityDetailsForClosedWon() method to get the Opportunities
-
-        // Create a set of Account Ids from the Opportunities
-
+    /*
+    public static void setPrimaryContact() {
+        //Use the getOpportunityDetailsForClosedWon() method to get the Opportunities.. I think I got the line below correct.
+        getOpportunityDetailsForClosedWon();
+        // Create a set of Account Ids from the Opportunities -- probably wrong here - don't understand sets much
+       Set<Account; Opportunity> AccountIdsFromOpps = new Set<Account; Opportunity>;
         // Query the Contacts
-
+        List<Contact> conList = [SELECT LastName, Id FROM Contact];
         // Loop through each Contact and add the Account Id and Contact to the map
-        
+        for /// something goes here 
+          // code of some kind goes here
+        }
         // Loop through each Opportunity
-
+        for /// something goes here 
+          // code of some kind goes here
+        }
                 // Update the Opportunity primary contact from accountToContactMap
-
+        update /// something goes here 
         // Update the Opportunities
+        update /// something goes here
    // }
+   */
 }

@@ -585,7 +585,7 @@ public with sharing class SOQLTest {
         // Assert that the number of contacts returned is correct
         System.assertEquals(testAccount.BillingState == 'CA' ? numberOfContactsInState : numberOfContactsInNY , contactsByState.size(), 'Number of contacts returned is incorrect.');
     }
-/*
+
     @IsTest
     static void testFindContactsByLeadEmailDomains() {
         // Create test data
@@ -656,7 +656,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+    
     @IsTest
     static void testCloneLineItems() {
         // Create test data
@@ -697,7 +697,7 @@ public with sharing class SOQLTest {
         System.assertEquals(1, clonedLineItems.size(), 'Number of cloned line items is incorrect.');
         System.assertEquals(100, clonedLineItems[0].UnitPrice, 'Cloned line item UnitPrice is incorrect.');
     }
-
+/*
     @IsTest
     static void testGetOpportunityDetailsForClosedWon() {
         // Create test data
@@ -726,7 +726,7 @@ public with sharing class SOQLTest {
             Assert.fail('Exception thrown: ' + ex.getMessage());
         }
     }
-
+/*
     @IsTest
     static void testSetPrimaryContact() {
         // Create test data
