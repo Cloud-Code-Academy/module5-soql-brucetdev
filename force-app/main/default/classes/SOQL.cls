@@ -387,7 +387,7 @@ public static List<String> getContactNamesByAccount(Id accountId) {
 }
 
     /**
-     * Question 23 - this passed.
+     * Question 23 - this passed with help!
      * Current status as of April 10: The test class does not pass the test class. Error message: "System.AssertException: Assertion Failed: Number of cloned line items is incorrect.: Expected: 1, Actual: 0"
      * Clones and Inserts Opportunity Line Items from an original Opportunity to a list of cloned Opportunities.
      * Adds a randomized number between 1 to 3 to the quantity of each line item.
@@ -454,28 +454,35 @@ public static List<String> getContactNamesByAccount(Id accountId) {
      * Question 25
      * Sets the 'Primary_Contact__c' field for all Closed Won Opportunities to first Contact on the Account.
      * Example: setPrimaryContact() should set the 'Primary_Contact__c' field for every Opportunity in the org
-     * this whole question is beyond me right now. Argh....
+     * reference material from question 20:      public static Account getOpportunityAndAccountNamesForLineItem(Id accountId) {
+    Account acc = [SELECT Name, (SELECT ID, Name FROM Opportunities) FROM Account Where ID = :accountId Limit 1];
+    return acc; 
+    }
      */
-    /*
-    public static void setPrimaryContact() {
-        //Use the getOpportunityDetailsForClosedWon() method to get the Opportunities.. I think I got the line below correct.
-        getOpportunityDetailsForClosedWon();
-        // Create a set of Account Ids from the Opportunities -- probably wrong here - don't understand sets much
-       Set<Account; Opportunity> AccountIdsFromOpps = new Set<Account; Opportunity>;
-        // Query the Contacts
-        List<Contact> conList = [SELECT LastName, Id FROM Contact];
-        // Loop through each Contact and add the Account Id and Contact to the map
-        for /// something goes here 
-          // code of some kind goes here
-        }
-        // Loop through each Opportunity
-        for /// something goes here 
-          // code of some kind goes here
-        }
-                // Update the Opportunity primary contact from accountToContactMap
-        update /// something goes here 
-        // Update the Opportunities
-        update /// something goes here
-   // }
-   */
+    
+     public static void setPrimaryContact() {
+      // Use the getOpportunityDetailsForClosedWon() method to get the Opportunities.
+      List<Opportunity> closedWonOpps = getOpportunityDetailsForClosedWon();
+  
+      // Loop through Closed Won Opportunities
+      for (Opportunity opp : closedWonOpps) {
+          // Query for the contact associated with the Account, ordered by first name alphabetically
+          List<Contact> contacts = [SELECT Id FROM Contact WHERE AccountId = :opp.AccountId ORDER BY FirstName ASC LIMIT 1];
+          if (!contacts.isEmpty()) {
+              Contact selectedContact = contacts[0];
+              // Set the 'Primary Contact' field on the Opportunity to the Id of the selected Contact
+              opp.Primary_Contact__c = selectedContact.Id;
+          }
+      }
+  
+      // Update Opportunities
+      update closedWonOpps;
+  }
+  
+  
+  
+  
+  
+  
+  
 }
